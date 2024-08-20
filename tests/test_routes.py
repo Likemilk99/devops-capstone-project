@@ -11,8 +11,8 @@ from unittest import TestCase
 from tests.factories import AccountFactory
 from service.common import status  # HTTP Status Codes
 from service.models import db, Account, init_db
-from service.routes import app
 from service import talisman
+from service.routes import app
 
 DATABASE_URI = os.getenv(
     "DATABASE_URI", "postgresql://postgres:postgres@localhost:5432/postgres"
@@ -199,6 +199,7 @@ class TestAccountService(TestCase):
         for key, value in headers.items():
             self.assertEqual(response.headers.get(key), value)
 
+    # Test for the CORS header
     def test_cors_security(self):
         """It should return a CORS header"""
         response = self.client.get('/', environ_overrides=HTTPS_ENVIRON)
